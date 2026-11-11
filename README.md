@@ -27,7 +27,8 @@ npm run fetch-data # （任意）都道府県GeoJSONを public/data/ に同梱
 | `VITE_BASE` | 絶対パスのbaseが必要な場合のみ（既定は相対パス `./`） |
 
 `VITE_` 付きの値はビルド成果物に含まれ公開されます。秘密情報は入れないでください。
-Cesium ion トークンは GitHub の Actions **Variables**（`VITE_CESIUM_ION_TOKEN`）に登録する想定で、リポジトリにはコミットしません。
+Cesium ion トークンは GitHub の Actions **Secret `CESIUM_ION_TOKEN`**（または Variable `VITE_CESIUM_ION_TOKEN`）に登録し、リポジトリにはコミットしません。ワークフローがビルド時に `VITE_CESIUM_ION_TOKEN` として渡します。
+ただしビルド後のJSには含まれて公開されるため、ion 側でトークンを `assets:read` のみ・許可URL `https://hiro2821.github.io` に制限してください。
 
 ## GitHub Pages
 

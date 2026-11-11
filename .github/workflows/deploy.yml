@@ -25,7 +25,10 @@ jobs:
       - run: npm install
       - run: npm run build
         env:
-          VITE_CESIUM_ION_TOKEN: ${{ vars.VITE_CESIUM_ION_TOKEN }}
+          # Secret CESIUM_ION_TOKEN を優先し、無ければ Variable VITE_CESIUM_ION_TOKEN を使う。
+          # どちらも未設定なら空文字になり、アプリは平坦な地形で動作する。
+          # 注意: VITE_ の値はビルド後のJSに含まれ公開される（Secretはログ上はマスクされるのみ）。
+          VITE_CESIUM_ION_TOKEN: ${{ secrets.CESIUM_ION_TOKEN || vars.VITE_CESIUM_ION_TOKEN }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
